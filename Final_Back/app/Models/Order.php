@@ -11,7 +11,6 @@ class Order extends Model
 
     
     public $fillable = [
-        'order_id',
         'user_id',
         'product_id',
         'order_date',
@@ -19,11 +18,11 @@ class Order extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Product::class);
     }
 }
