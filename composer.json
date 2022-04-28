@@ -1,0 +1,10 @@
+{
+    "require": {
+        "tymon/jwt-auth": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
