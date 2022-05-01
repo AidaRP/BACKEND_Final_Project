@@ -41,23 +41,54 @@ class UserController extends Controller
         }
     }
     public function deleteUser($id)
-{
-    Log::info('deleteUser()');
+    {
+        Log::info('deleteUser()');
 
-    try {
+        try {
 
-        $user = User::find($id);
-        $user->delete();
+            $user = User::find($id);
+            $user->delete();
 
-        Log::info('Tasks done');
-        return response()->json(['message' => 'User deleted'], 200);
+            Log::info('Tasks done');
+            return response()->json(['message' => 'User deleted'], 200);
+        } catch (\Exception $e) {
 
-    } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong'], 500);
+        }
+    }
+    public function updateUser(Request $request, $id)
+    {
+        Log::info('updateUser()');
 
-        Log::error($e->getMessage());
-        return response()->json(['message' => 'Something went wrong'], 500);
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validation failed'], 400);
+            }
+
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->surname = $request->surname;
+            $user->username = $request->username;
+            $user->country = $request->country;
+            $user->city = $request->city;
+            $user->gender = $request->gender;
+            $user->password = $request->password;
+            $user->email = $request->email;
+            $user->save();
+
+            Log::info('Tasks done');
+            return response()->json($user, 200);
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong'], 500);
+        }
     }
 }
-}
-
-
