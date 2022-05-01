@@ -40,4 +40,24 @@ class UserController extends Controller
             return response()->json(['message' => 'Something went wrong'], 500);
         }
     }
+    public function deleteUser($id)
+{
+    Log::info('deleteUser()');
+
+    try {
+
+        $user = User::find($id);
+        $user->delete();
+
+        Log::info('Tasks done');
+        return response()->json(['message' => 'User deleted'], 200);
+
+    } catch (\Exception $e) {
+
+        Log::error($e->getMessage());
+        return response()->json(['message' => 'Something went wrong'], 500);
+    }
 }
+}
+
+
