@@ -26,9 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         'middleware' => 'jwt.auth'
     ], function () {
         Route::post('/logout', [AuthController::class, "logout"]);
-
         Route::get('/profile', [AuthController::class, 'profile']);
-
         Route::get('/users', [UserController::class, 'allUsers']);
+        Route::get('/users/{id}', [UserController::class, 'userByID']);
     });
 });
