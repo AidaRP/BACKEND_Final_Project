@@ -13,7 +13,14 @@ class Products extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name_product', 100);
+            $table->boolean('disponibility');
+            $table->unsignedInteger('price', 200);
+            $table->string('ingredients', 300);
+            $table->timestamps();
+        });
     }
 
     /**
