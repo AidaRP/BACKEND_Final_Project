@@ -32,4 +32,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::put('/users/{id}', [UserController::class, 'updateUser']);
         Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
     });
+    Route::group([
+        'middleware' => 'jwt.auth'
+    ], function () {
+
+
+        Route::get('/products', [ProductController::class, 'allProducts']);
+
+        Route::post('/products', [ProductController::class, 'newProducts']);
+
+        Route::get('/products/{id}', [ProductController::class, 'productsByID']);
+
+        Route::put('/products/{id}', [ProductController::class, 'updateProducts']);
+
+        Route::delete('/products/{id}', [ProductController::class, 'deleteProducts']);
+    });
 });

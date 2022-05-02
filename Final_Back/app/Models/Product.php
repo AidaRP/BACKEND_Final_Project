@@ -12,6 +12,7 @@ class Product extends Model
         'name_product',
         'disponibility',
         'price',
-        'ingredients'
+        'ingredients',
+        'url'
     ];
 }
